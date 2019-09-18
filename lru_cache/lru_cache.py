@@ -12,7 +12,6 @@ class LRUCache:
 
     def __init__(self, limit=10):
         self.limit = limit
-        self.current_size = 0
         self.cache = DoublyLinkedList()
         self.storage = {}
 
@@ -25,8 +24,10 @@ class LRUCache:
   """
 
     def get(self, key):
-        if key:
-            self.cache.move_to_end(key)
+        if key in self.storage:
+            new_node = self.storage[key]
+            self.cache.move_to_front(new_node)
+            return new_node.value[1]
         else:
             return None
 
@@ -42,4 +43,13 @@ class LRUCache:
   """
 
     def set(self, key, value):
-        pass
+        if key in self.storage:
+            new_node = self.storage[key]
+            new_node.value = (key, value)
+            self.cache.move_to_front(new_node)
+            return
+        if self.cache.length == self.limit:
+            del self.storage[self.cache.tail.value[0]]
+            self.cache.remove_from_tail()
+        self.cache.add_to_head((key, value))
+        self.storage[key] = self.cache.head
