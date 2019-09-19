@@ -72,29 +72,58 @@ class BinarySearchTree:
             if node.right is not None:
                 loop_queue.insert(0, node.right)
 
-    def forEach(self, cb):
-        cb(self.value)
-        if self.left:
-            self.left.forEach(cb)
-        if self.right:
-            self.right.forEach(cb)
+# OOOOOOR
+    # def forEach(self, cb):
+    #     cb(self.value)
+    #     if self.left:
+    #         self.left.forEach(cb)
+    #     if self.right:
+    #         self.right.forEach(cb)
 # DAY 2 Project -----------------------
 
     # Print all the values in order from low to high
     # Hint:  Use a recursive, depth first traversal
 
     def in_order_dft(self, node):
-        pass
+        Stack_Name = Stack()
+        ordered_list = []
+        Stack_Name.push(node)
+        while Stack_Name.size > 0:
+            variable = Stack_Name.pop()
+            ordered_list.append(variable.value)
+            if variable.right:
+                Stack_Name.push(variable.right)
+            if variable.left:
+                Stack_Name.push(variable.left)
+        ordered_list.sort()
+        for i in range(0, len(ordered_list)):
+            print(ordered_list[i])
 
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
     def bft_print(self, node):
-        pass
-
+        Queue_Name = Queue()
+        Queue_Name.enqueue(node)
+        while Queue_Name.size > 0:
+            variable = Queue_Name.dequeue()
+            print(variable.value)
+            if variable.left:
+                Queue_Name.enqueue(variable.left)
+            if variable.right:
+                Queue_Name.enqueue(variable.right)
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
+
     def dft_print(self, node):
-        pass
+        Stack_Name = Stack()
+        Stack_Name.push(node)
+        while Stack_Name.size > 0:
+            variable = Stack_Name.pop()
+            print(variable.value)
+            if variable.left:
+                Stack_Name.push(variable.left)
+            if variable.right:
+                Stack_Name.push(variable.right)
 
     # STRETCH Goals -------------------------
     # Note: Research may be required
