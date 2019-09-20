@@ -1,6 +1,4 @@
 from doubly_linked_list import DoublyLinkedList
-import sys
-sys.path.append('./doubly_linked_list')
 
 
 class Stack:
@@ -15,7 +13,7 @@ class Stack:
 
     def pop(self):
         self.size -= 1
-        self.storage.remove_from_head()
+        return self.storage.remove_from_head()
 
     def len(self):
         return self.size
